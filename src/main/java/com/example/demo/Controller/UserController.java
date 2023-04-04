@@ -3,6 +3,7 @@ package com.example.demo.Controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.coyote.http11.upgrade.UpgradeServletOutputStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,8 +30,33 @@ public class UserController {
 		public List<User> getAll(){
 			return userservice.findAll();
 		}
-		  @PostMapping
-		   public User save(@RequestBody User customer) {
-		        return userservice.save(customer);
-		    }
+		 @PostMapping
+		 public User save(@RequestBody User customer) {
+		     return userservice.save(customer);
+		 
+		 }
+		 @PutMapping("/{id}")
+		 public User updateUser(@PathVariable int id, @RequestBody User nweuser) {
+			 Optional<User> user= userservice.findById(id); 
+			 if(user.isPresent()) {
+				 User founduser=user.get(); 
+				 founduser.setUsername(nweuser.getUsername());
+				 founduser.setPassword(nweuser.getPassword());
+				 userservice.save(founduser);
+				 return founduser;
+			 }else {
+				 return null;
+			 }
+		 }
+		 @DeleteMapping("/{id}")
+		 public void save(@PathVariable int id) {
+		      userservice.deleteById(id);
+		 
+		 }
+		 @GetMapping("/{id}")
+		 public User getuser(@PathVariable int id) {
+			 User var=userservice.findById(id).orElse(null);
+		     return var;
+		 
+		 }
 }
