@@ -23,8 +23,7 @@ public class Post {
    @Id
    int id;
    @ManyToOne(fetch=FetchType.LAZY)
-   @JoinColumn(name="userId",nullable=false)
-   @OnDelete(action=OnDeleteAction.CASCADE)
+   @JoinColumn(name="userId")
    @JsonIgnore
    User user;
    String title; 

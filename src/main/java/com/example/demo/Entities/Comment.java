@@ -59,14 +59,12 @@ public class Comment {
 	}
 
 	@ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="postId",nullable=false)
-    @OnDelete(action=OnDeleteAction.CASCADE)
+    @JoinColumn(name="postId")
     @JsonIgnore
     Post post;
      
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="userId",nullable=false)
-    @OnDelete(action=OnDeleteAction.CASCADE)
+    @JoinColumn(name="userId")
     @JsonIgnore
     User user; 
     
