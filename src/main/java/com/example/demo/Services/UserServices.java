@@ -20,8 +20,8 @@ public class UserServices {
 	public User saveperson(User customer) {
 		return usrRepository.save(customer);
 	}
-	public Optional<User> findUserById(int id) {
-		return usrRepository.findById(id);
+	public User getOneUser(int id) {
+		return usrRepository.findById(id).orElse(null);
 	}
 	public void deleteUserById(int id) {
 		usrRepository.deleteById(id);
@@ -38,5 +38,6 @@ public class UserServices {
 			 return null;
 		 }
 	}
+	
 	
 }

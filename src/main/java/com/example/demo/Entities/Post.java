@@ -23,7 +23,7 @@ public class Post {
    @Id
    int id;
    @ManyToOne(fetch=FetchType.LAZY)
-   @JoinColumn(name="userId")
+   @JoinColumn(name="user_id")
    @JsonIgnore
    User user;
    String title; 
