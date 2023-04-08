@@ -15,18 +15,18 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 @Entity
-@Table(name="like")
+@Table(name="likes")
 @Data
 public class Like {
       @Id
       int id;
       @ManyToOne(fetch=FetchType.LAZY)
-      @JoinColumn(name="postId")
+      @JoinColumn(name="post_id")
       @JsonIgnore
       Post post;
        
       @ManyToOne(fetch=FetchType.LAZY)
-      @JoinColumn(name="userId")
+      @JoinColumn(name="user_id")
       @JsonIgnore
       User user;
 
