@@ -4,9 +4,11 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.CreateRequest.PostCreateRequest;
+import com.example.demo.CreateRequest.putPost;
 import com.example.demo.Entities.Post;
 import com.example.demo.Entities.User;
 import com.example.demo.Repositories.PostRepository;
@@ -19,14 +21,14 @@ public class PostServices {
    	 this.postrepository=_postrepository;
    	 this.userservice=_userservice;
     }
-	public List<Post> getAllpost(@RequestParam Optional<Integer> id) {
-		if(id.isPresent()) {
-			return postrepository.findByUserId(id.get());
+	public List<Post> getAllpost(@RequestParam Integer id) {
+		if(id!=null) {
+			return postrepository.findByUserId(id);
 		}
 		return postrepository.findAll();
 	}
-	public Post getOnePostById(int postid) {
-		 return postrepository.findById(postid).orElse(null);
+	public Optional<Post> getOnePostById(int postid) {
+		 return postrepository.findById(postid);
 	}
 	public Post createOnePost(PostCreateRequest newpost) {
 		User user=userservice.getOneUser(newpost.getUser_id());
@@ -39,6 +41,20 @@ public class PostServices {
 		tosave.setTitle(newpost.getTitle());
 		tosave.setUser(user);
 		return postrepository.save(tosave);
+	}
+	public Post updateOnepost(int postid, @RequestBody putPost newpost){
+		 Optional<Post> post= postrepository.findById(postid); 
+		 if(post.isPresent()) {
+			 Post foundpost=post.get(); 
+			 foundpost.setTitle(newpost.getTitle());
+			 foundpost.setText(newpost.getText());
+			 return postrepository.save(foundpost);
+		 }else {
+			 return null;
+		 }
+	}
+	public void deleteOnepost(int postid) {
+		postrepository.deleteById(postid);
 	}
     
 }
