@@ -27,8 +27,8 @@ public class PostServices {
 		}
 		return postrepository.findAll();
 	}
-	public Optional<Post> getOnePostById(int postid) {
-		 return postrepository.findById(postid);
+	public Post getOnePostById(int postid) {
+		 return postrepository.findById(postid).orElse(null);
 	}
 	public Post createOnePost(PostCreateRequest newpost) {
 		User user=userservice.getOneUser(newpost.getUser_id());

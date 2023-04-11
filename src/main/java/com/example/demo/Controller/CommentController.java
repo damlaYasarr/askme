@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.CreateRequest.CommentCreateRequest;
 import com.example.demo.CreateRequest.PostCreateRequest;
 import com.example.demo.CreateRequest.putPost;
 import com.example.demo.Entities.Comment;
@@ -28,22 +29,22 @@ public class CommentController {
    	 this.commentservice=_commentservice;
     }
     @GetMapping
-    public List<Comment> getAllComment(@RequestParam Integer id){
-    	  return commentservice.getAllcomment(id);
+    public List<Comment> getAllComment(@RequestParam Integer userid, @RequestParam Integer postid){
+    	  return commentservice.getAllcomment(userid,postid);
     }
     @PostMapping
-    public Comment createOneComment(@RequestBody CommentRequest newcomment) {
+    public Comment createOneComment(@RequestBody CommentCreateRequest newcomment) {
     	return commentservice.createOneComment(newcomment);
     }
     @GetMapping("/{commid}")
-    public Optional<Comment> getOnePost(@PathVariable int commentid) {
-    	var comm= commentservice.getOnecommentById(commentid);
-    	return comm;
+    public Comment getOnePost(@PathVariable int commentid) {
+    	return  commentservice.getOnecommentById(commentid);
+    	
     }
     
     @PutMapping("/{commid}")
-    public Post updateComment(@PathVariable int commentid, @RequestBody putPost newpost) {
-    	var comm= commentservice.updateOneComment(commentid,newpost);
+    public Comment updateComment(@PathVariable int commentid, @RequestBody String commn) {
+    	var comm= commentservice.updateOneComment(commentid,commn);
     	return comm;
     }
     @DeleteMapping("/{commid}")
