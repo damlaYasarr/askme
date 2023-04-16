@@ -24,7 +24,7 @@ import com.example.demo.Services.PostServices;
 @RestController
 @RequestMapping("/comments")
 public class CommentController {
-	private CommentServices commentservice; 
+	private CommentServices commentservice;
     public CommentController(CommentServices _commentservice) {
    	 this.commentservice=_commentservice;
     }
@@ -36,20 +36,21 @@ public class CommentController {
     public Comment createOneComment(@RequestBody CommentCreateRequest newcomment) {
     	return commentservice.createOneComment(newcomment);
     }
-    @GetMapping("/{commid}")
-    public Comment getOnePost(@PathVariable int commentid) {
+    @GetMapping("/{commentid}")
+    public Comment getOneComment(@PathVariable Integer commentid) {
     	return  commentservice.getOnecommentById(commentid);
     	
     }
     
-    @PutMapping("/{commid}")
-    public Comment updateComment(@PathVariable int commentid, @RequestBody String commn) {
-    	var comm= commentservice.updateOneComment(commentid,commn);
-    	return comm;
+    @PutMapping("/{commentid}")
+    public Comment updateComment(@PathVariable Integer commentid, @RequestBody String commn) {
+    	return commentservice.updateOneComment(commentid,commn);
+    	
     }
     @DeleteMapping("/{commid}")
-    public void deletePost(@PathVariable int commid) {
+    public void deleteComment(@PathVariable Integer commid) {
     	  commentservice.deleteOnecomment(commid);
     	
     }
+    
 }

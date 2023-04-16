@@ -35,18 +35,18 @@ public class PostController {
     	return postservice.createOnePost(newpost);
     }
     @GetMapping("/{postid}")
-    public Optional<Post> getOnePost(@PathVariable int postid) {
+    public Post getOnePost(@PathVariable Integer postid) {
     	var post= postservice.getOnePostById(postid);
     	return post;
     }
     
     @PutMapping("/{postid}")
-    public Post updatePost(@PathVariable int postid, @RequestBody putPost newpost) {
+    public Post updatePost(@PathVariable Integer postid, @RequestBody putPost newpost) {
     	var post= postservice.updateOnepost(postid,newpost);
     	return post;
     }
     @DeleteMapping("/{postid}")
-    public void deletePost(@PathVariable int postid) {
+    public void deletePost(@PathVariable Integer postid) {
     	  postservice.deleteOnepost(postid);
     	
     }

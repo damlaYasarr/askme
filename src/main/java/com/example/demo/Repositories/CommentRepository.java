@@ -10,11 +10,11 @@ import com.example.demo.Entities.Comment;
 @Repository
 public interface CommentRepository extends JpaRepository<Comment,Integer> {
 
-	List<Comment> findByUserIdandpostId(Integer userid, Integer postid);
+	List<Comment> findByUserIdAndPostId(Integer userId, Integer postId);
 
-	List<Comment> findByUserId(Integer userid);
+	List<Comment> findByUserId(Integer userId);
 
-	List<Comment> findByPostId(Integer postid);
+	List<Comment> findByPostId(Integer postId);
 
 }
 

@@ -3,6 +3,7 @@ package com.example.demo.Services;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.Entities.User;
@@ -10,7 +11,8 @@ import com.example.demo.Repositories.UserRepository;
 
 @Service
 public class UserServices {
-     UserRepository usrRepository; 
+	
+     private UserRepository usrRepository; 
      public UserServices(UserRepository _usrRepository) {
     	 this.usrRepository=_usrRepository;
      }
@@ -20,13 +22,13 @@ public class UserServices {
 	public User saveperson(User customer) {
 		return usrRepository.save(customer);
 	}
-	public User getOneUser(int id) {
+	public User getOneUser(Integer id) {
 		return usrRepository.findById(id).orElse(null);
 	}
-	public void deleteUserById(int id) {
+	public void deleteUserById(Integer id) {
 		usrRepository.deleteById(id);
 	}  
-	public User updateusr(int id, User newusr) {
+	public User updateusr(Integer id, User newusr) {
 		 Optional<User> user= usrRepository.findById(id); 
 		 if(user.isPresent()) {
 			 User founduser=user.get(); 

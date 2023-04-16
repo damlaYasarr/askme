@@ -2,7 +2,11 @@ package com.example.demo.Services;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.CreateRequest.CommentCreateRequest;
 import com.example.demo.CreateRequest.putPost;
@@ -10,13 +14,14 @@ import com.example.demo.Entities.Comment;
 import com.example.demo.Entities.Post;
 import com.example.demo.Entities.User;
 import com.example.demo.Repositories.CommentRepository;
-import com.example.demo.Repositories.PostRepository;
+
 
 @Service
 public class CommentServices {
-	 private CommentRepository commentrepository; 
-	    private UserServices  userservice;
-	    private PostServices  postservice;
+	   @Autowired
+	    private CommentRepository commentrepository; 
+	    public UserServices  userservice;
+	    public PostServices  postservice;
 	    public CommentServices( CommentRepository _commentrepository, 
 	    		 UserServices  _userservice,
 	            PostServices  _postservice ) {
@@ -24,9 +29,9 @@ public class CommentServices {
 	   	 this.userservice=_userservice;
 	   	 this.postservice=_postservice;
 	    }
-	public List<Comment> getAllcomment(Integer userid, Integer postid) {
+	public List<Comment> getAllcomment(@RequestParam Integer userid, @RequestParam Integer postid) {
 		if(userid!=null && postid!=null) {
-			return commentrepository.findByUserIdandpostId(userid,postid);
+			return commentrepository.findByUserIdAndPostId(userid,postid);
 		}else if(userid!=null){
 			return commentrepository.findByUserId(userid);
 		}else if(postid!=null){
@@ -37,12 +42,12 @@ public class CommentServices {
 		
 	}
 
-	public void deleteOnecomment(int commid) {
-		// TODO Auto-generated method stub
+	public void deleteOnecomment(Integer commid) {
+		commentrepository.deleteById(commid);
 		
 	}
 
-	public Comment updateOneComment(int commentid,String commn) {
+	public Comment updateOneComment(@PathVariable Integer commentid,@RequestBody String commn) {
 		Comment comm=commentrepository.getOne(commentid);
 		if(comm!=null) {
 			 Comment commtoupdate=comm;
@@ -53,10 +58,10 @@ public class CommentServices {
 		}
 	}
 
-	public Comment getOnecommentById(int commentid) {
+	public Comment getOnecommentById(Integer commentid) {
 		return commentrepository.findById(commentid).orElse(null);
 	}
-	public Comment createOneComment(CommentCreateRequest newcomment) {
+	public Comment createOneComment( @RequestBody CommentCreateRequest newcomment) {
 		User user=userservice.getOneUser(newcomment.getUser_id());
 		Post post=postservice.getOnePostById(newcomment.getPost_id()); 
 		if(user!=null && post!=null) {

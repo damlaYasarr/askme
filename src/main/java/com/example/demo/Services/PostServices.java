@@ -3,6 +3,7 @@ package com.example.demo.Services;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,9 +13,10 @@ import com.example.demo.CreateRequest.putPost;
 import com.example.demo.Entities.Post;
 import com.example.demo.Entities.User;
 import com.example.demo.Repositories.PostRepository;
-import com.example.demo.Repositories.UserRepository;
+
 @Service
 public class PostServices {
+	@Autowired
     private PostRepository postrepository; 
     private UserServices  userservice;
     public PostServices(PostRepository _postrepository,UserServices  _userservice) {
@@ -27,7 +29,7 @@ public class PostServices {
 		}
 		return postrepository.findAll();
 	}
-	public Post getOnePostById(int postid) {
+	public Post getOnePostById(Integer postid) {
 		 return postrepository.findById(postid).orElse(null);
 	}
 	public Post createOnePost(PostCreateRequest newpost) {
@@ -42,7 +44,7 @@ public class PostServices {
 		tosave.setUser(user);
 		return postrepository.save(tosave);
 	}
-	public Post updateOnepost(int postid, @RequestBody putPost newpost){
+	public Post updateOnepost(Integer postid, @RequestBody putPost newpost){
 		 Optional<Post> post= postrepository.findById(postid); 
 		 if(post.isPresent()) {
 			 Post foundpost=post.get(); 
@@ -53,7 +55,7 @@ public class PostServices {
 			 return null;
 		 }
 	}
-	public void deleteOnepost(int postid) {
+	public void deleteOnepost(Integer postid) {
 		postrepository.deleteById(postid);
 	}
     
