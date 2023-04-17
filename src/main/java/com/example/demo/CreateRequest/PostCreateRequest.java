@@ -1,14 +1,28 @@
 package com.example.demo.CreateRequest;
 
+import com.example.demo.Entities.Post;
+
 public class PostCreateRequest {
      int id; 
+     String username;
      String text; 
-     String title; 
+    
+	String title; 
      int user_id;
      
-	public PostCreateRequest() {
-		
-	}
+	public PostCreateRequest(Post entity) {
+		this.id=entity.getId();
+		this.user_id=entity.getUser().getId();
+		this.username=entity.getUser().getUsername(); 
+		this.title=entity.getTitle(); 
+		this.text=entity.getText(); 
+		}
+	 public String getUsername() {
+			return username;
+		}
+		public void setUsername(String username) {
+			this.username = username;
+		}
 	public int getId() {
 		return id;
 	}

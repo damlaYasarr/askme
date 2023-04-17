@@ -27,7 +27,7 @@ public class PostController {
    	 this.postservice=_postservice;
     }
     @GetMapping
-    public List<Post> getAllPost(@RequestParam Integer id){
+    public List<PostCreateRequest> getAllPost(@RequestParam(required = false, defaultValue = "0") Integer id){
     	  return postservice.getAllpost(id);
     }
     @PostMapping

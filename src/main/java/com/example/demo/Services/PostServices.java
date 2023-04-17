@@ -2,6 +2,7 @@ package com.example.demo.Services;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,11 +24,14 @@ public class PostServices {
    	 this.postrepository=_postrepository;
    	 this.userservice=_userservice;
     }
-	public List<Post> getAllpost(@RequestParam Integer id) {
+	public List<PostCreateRequest> getAllpost(@RequestParam Integer id) {
+		List<Post> list;
 		if(id!=null) {
-			return postrepository.findByUserId(id);
+			list= postrepository.findByUserId(id);
 		}
-		return postrepository.findAll();
+		list= postrepository.findAll();
+		//most important part
+		return list.stream().map(p-> new PostCreateRequest(p)).collect(Collectors.toList());
 	}
 	public Post getOnePostById(Integer postid) {
 		 return postrepository.findById(postid).orElse(null);

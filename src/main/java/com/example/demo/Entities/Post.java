@@ -23,9 +23,8 @@ import lombok.Data;
 public class Post {
    @Id
    int id;
-   @ManyToOne(fetch=FetchType.LAZY)
+   @ManyToOne(fetch=FetchType.EAGER)
    @JoinColumn(name="user_id")
-   @JsonIgnore
    User user;
    String title; 
    String text;
