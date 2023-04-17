@@ -4,9 +4,9 @@ public class CommentCreateRequest {
     int id;
     int user_id; 
     int post_id; 
-	String comment;
+	String text;
 	public CommentCreateRequest() {
-		super();
+	
 	}
 	public int getId() {
 		return id;
@@ -26,11 +26,11 @@ public class CommentCreateRequest {
 	public void setPost_id(int post_id) {
 		this.post_id = post_id;
 	}
-	public String getComment() {
-		return comment;
+	public String getText() {
+		return text;
 	}
-	public void setComment(String comment) {
-		this.comment = comment;
+	public void setText(String comment) {
+		this.text = comment;
 	} 
 
 }

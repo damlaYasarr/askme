@@ -15,7 +15,8 @@ import org.hibernate.annotations.OnDeleteAction;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
-
+/*
+ * lob annotattions convert value to the numbers*/
 @Entity
 @Table(name="post")
 @Data
@@ -27,8 +28,6 @@ public class Post {
    @JsonIgnore
    User user;
    String title; 
-   @Lob
-   @Column(name="text")
    String text;
 public int getId() {
 	return id;

@@ -69,7 +69,7 @@ public class CommentServices {
 			tosave.setId(newcomment.getId());
 			tosave.setPost(post);
 			tosave.setUser(user);
-			tosave.setText(newcomment.getComment());
+			tosave.setText(newcomment.getText());
 			return commentrepository.save(tosave);
 		}
 		
