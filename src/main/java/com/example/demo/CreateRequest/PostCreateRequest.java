@@ -1,23 +1,42 @@
 package com.example.demo.CreateRequest;
 
+import java.util.List;
+
+import com.example.demo.Entities.Like;
 import com.example.demo.Entities.Post;
 
 public class PostCreateRequest {
      int id; 
      String username;
      String text; 
-    
-	String title; 
+	 String title; 
      int user_id;
+     List<CreateLike>postlike;
      
-	public PostCreateRequest(Post entity) {
+	public PostCreateRequest(Post entity, List<CreateLike> like) {
 		this.id=entity.getId();
 		this.user_id=entity.getUser().getId();
 		this.username=entity.getUser().getUsername(); 
 		this.title=entity.getTitle(); 
 		this.text=entity.getText(); 
+		this.postlike=like;
 		}
-	 public String getUsername() {
+	
+	
+	
+	 public List<CreateLike> getPostlike() {
+		return postlike;
+	}
+
+
+
+	public void setPostlike(List<CreateLike> postlike) {
+		this.postlike = postlike;
+	}
+
+
+
+	public String getUsername() {
 			return username;
 		}
 		public void setUsername(String username) {

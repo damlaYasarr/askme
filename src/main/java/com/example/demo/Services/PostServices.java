@@ -9,8 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.demo.CreateRequest.CreateLike;
 import com.example.demo.CreateRequest.PostCreateRequest;
 import com.example.demo.CreateRequest.putPost;
+import com.example.demo.Entities.Like;
 import com.example.demo.Entities.Post;
 import com.example.demo.Entities.User;
 import com.example.demo.Repositories.PostRepository;
@@ -20,9 +22,11 @@ public class PostServices {
 	@Autowired
     private PostRepository postrepository; 
     private UserServices  userservice;
-    public PostServices(PostRepository _postrepository,UserServices  _userservice) {
+    private LikeServices  likeservice;
+    public PostServices(PostRepository _postrepository,LikeServices  _likeservice,UserServices  _userservice) {
    	 this.postrepository=_postrepository;
    	 this.userservice=_userservice;
+   	 this.likeservice=_likeservice;
     }
 	public List<PostCreateRequest> getAllpost(@RequestParam Integer id) {
 		List<Post> list;
@@ -31,7 +35,10 @@ public class PostServices {
 		}
 		list= postrepository.findAll();
 		//most important part
-		return list.stream().map(p-> new PostCreateRequest(p)).collect(Collectors.toList());
+		return list.stream().map(p->{
+			List<CreateLike> like= likeservice.getAllLikewithParam(Optional.ofNullable(null),Optional.of(p.getId()));
+		    return new PostCreateRequest(p,like);
+		    }).collect(Collectors.toList());
 	}
 	public Post getOnePostById(Integer postid) {
 		 return postrepository.findById(postid).orElse(null);
